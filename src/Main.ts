@@ -5,7 +5,7 @@ import { Logger } from './utils/Logger'
 import express, { Request, Response, NextFunction } from 'express'
 
 // routers
-import Hello from './router/Hello'
+import Voice from './router/voice'
 
 const app = express()
 
@@ -19,7 +19,7 @@ app.use('*', async (req: Request, res: Response, next: NextFunction) => {
   next()
 })
 
-app.use('/hello', Hello)
+app.use('/voice', Voice)
 
 app.use('*', async (req: Request, res: Response, next: NextFunction) => {
   res.status(404).send({ code: 404, message: 'Not Found' })
