@@ -5,7 +5,7 @@ import { Logger } from '../utils/Logger'
 import MiddleWare from '../classes/SerialCheck'
 // import DatabaseClient from '../classes/Database'
 import { SpeechClient } from '@google-cloud/speech'
-import express, { Request, Response, NextFunction } from 'express'
+import express, { Request, Response } from 'express'
 
 const app = express.Router()
 const client = new SpeechClient()
@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(MiddleWare.verify)
-app.post('/stt', async (req: Request, res: Response, next: NextFunction) => {
+app.post('/stt', async (req: Request, res: Response) => {
   const { content } = req.body
   if (!content) return res.status(400).send({ sucess: false, message: 'No content' })
   const config = {

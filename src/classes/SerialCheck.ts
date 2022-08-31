@@ -12,7 +12,7 @@ export default class MiddleWare {
       if (!speaker) return res.status(401).send({ sucess: false, message: 'SerialNumber not matched' })
       res.locals.identity = speaker
       next()
-    } catch (err:any) {
+    } catch (err: any) {
       Logger.error('knex').put(err.stack).out()
       return res.status(500).send({ sucess: false, message: 'Internal Server Error (database failed)' })
     }
