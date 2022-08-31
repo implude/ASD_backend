@@ -7,6 +7,7 @@ import express, { Request, Response, NextFunction } from 'express'
 // routers
 import Voice from './router/voice'
 import Studymode from './router/studyMode'
+import RFID from './router/RFID'
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use('*', async (req: Request, res: Response, next: NextFunction) => {
 })
 
 app.use('/voice', Voice)
+app.use('/rfid', RFID)
 app.use('/studymode', Studymode)
 
 app.use('*', async (req: Request, res: Response, next: NextFunction) => {
