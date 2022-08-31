@@ -6,6 +6,7 @@ import express, { Request, Response, NextFunction } from 'express'
 
 // routers
 import Voice from './router/voice'
+import Studymode from './router/studyMode'
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.use('*', async (req: Request, res: Response, next: NextFunction) => {
 })
 
 app.use('/voice', Voice)
+app.use('/studymode', Studymode)
 
 app.use('*', async (req: Request, res: Response, next: NextFunction) => {
   res.status(404).send({ code: 404, message: 'Not Found' })
