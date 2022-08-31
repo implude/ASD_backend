@@ -7,7 +7,7 @@
 #
 # Host: Oracle.choabot.com (MySQL 5.5.5-10.6.5-MariaDB-1:10.6.5+maria~focal)
 # Database: ASD
-# Generation Time: 2022-08-31 06:11:59 +0000
+# Generation Time: 2022-08-31 06:14:38 +0000
 # ************************************************************
 
 
@@ -31,6 +31,7 @@ CREATE TABLE `users` (
   `totalStudyTime` bigint(64) DEFAULT NULL,
   `studymode` timestamp NULL DEFAULT NULL,
   `serialNumber` varchar(50) DEFAULT NULL,
+  `RFID` text DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
