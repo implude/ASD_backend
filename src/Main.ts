@@ -8,6 +8,7 @@ import express, { Request, Response, NextFunction } from 'express'
 import Voice from './router/voice'
 import Studymode from './router/studyMode'
 import RFID from './router/RFID'
+import Me from './router/me'
 
 const app = express()
 
@@ -24,6 +25,7 @@ app.use('*', async (req: Request, res: Response, next: NextFunction) => {
 app.use('/voice', Voice)
 app.use('/rfid', RFID)
 app.use('/studymode', Studymode)
+app.use('/@me', Me)
 
 app.use('*', async (req: Request, res: Response, next: NextFunction) => {
   res.status(404).send({ code: 404, message: 'Not Found' })

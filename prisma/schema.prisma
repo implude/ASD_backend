@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  Male
+  Female
+  Etc
+  Private
+}
+
+model User {
+  id           Int         @id @default(autoincrement())
+  uuid         String      @unique
+  school       String
+  email        String      @unique
+  name         String
+  age          Int
+  gender       Gender
+  RFID         String
+  websocketUrl String
+  serialNumber String      @unique
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  StudyTime    StudyTime[]
+}
+
+model StudyTime {
+  id     Int      @id @default(autoincrement())
+  user   User     @relation(fields: [userId], references: [uuid])
+  userId String
+  start  DateTime @default(now())
+  end    DateTime
+  time   Int   @default(0)
+}
