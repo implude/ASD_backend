@@ -26,7 +26,6 @@ model User {
   age          Int
   gender       Gender
   RFID         String
-  websocketUrl String
   serialNumber String      @unique
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt

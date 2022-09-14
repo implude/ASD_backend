@@ -11,13 +11,13 @@ const prisma = new PrismaClient()
 
 app.use(cors())
 app.use(helmet())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json({ limit: '100mb' }))
+app.use(express.urlencoded({ extended: true, limit: '100mb' }))
 
 app.use(MiddleWare.verify)
 app.get('/start', async (req: Request, res: Response & { locals: { identity: User} }) => {
   const studymode = await prisma.studyTime.findFirst({ where: { userId: res.locals.identity.uuid, time: 0 } })
-  if (studymode) return res.status(400).send({ sucess: false, message: 'Already started' })
+  if (studymode) return res.status(400).send({ success: false, message: 'Already started' })
   try {
     await prisma.studyTime.create({
       data: {
@@ -27,16 +27,16 @@ app.get('/start', async (req: Request, res: Response & { locals: { identity: Use
         end: new Date('1970-01-01T00:00:00.000Z')
       }
     })
-    res.status(200).send({ sucess: true, message: 'Starting stucy mode' })
+    res.status(200).send({ success: true, message: 'Starting stucy mode' })
   } catch (err: any) {
     Logger.error('Prisma').put(err.stack).out()
-    return res.status(500).send({ sucess: false, message: 'Internal Server Error (database failed)' })
+    return res.status(500).send({ success: false, message: 'Internal Server Error (database failed)' })
   }
 })
 
 app.get('/stop', async (req: Request, res: Response & { locals: { identity: User} }) => {
   const studymode = await prisma.studyTime.findFirst({ where: { userId: res.locals.identity.uuid, time: 0 } })
-  if (!studymode) return res.status(400).send({ sucess: false, message: 'Already started' })
+  if (!studymode) return res.status(400).send({ success: false, message: 'Already started' })
   try {
     const studied = Date.now() - studymode.start.getTime()
     await prisma.studyTime.update({
@@ -48,10 +48,10 @@ app.get('/stop', async (req: Request, res: Response & { locals: { identity: User
         id: studymode.id
       }
     })
-    res.status(200).send({ sucess: true, message: 'Ended studymode' })
+    res.status(200).send({ success: true, message: 'Ended studymode' })
   } catch (err: any) {
     Logger.error('Prisma').put(err.stack).out()
-    return res.status(500).send({ sucess: false, message: 'Internal Server Error (database failed)' })
+    return res.status(500).send({ success: false, message: 'Internal Server Error (database failed)' })
   }
 })
 

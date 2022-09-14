@@ -5,10 +5,10 @@ import { Logger } from '../utils/Logger'
 const prisma = new PrismaClient()
 export default class MiddleWare {
   public static async verify (req: Request, res: Response & { locals: { identity: User} }, next: NextFunction) {
-    const { SN } = req.headers
-    if (!SN) return res.status(401).send({ sucess: false, message: 'Auth failed (SN required)' })
+    const { sn } = req.headers
+    if (!sn) return res.status(401).send({ sucess: false, message: 'Auth failed (SN required)' })
     try {
-      const speaker = await prisma.user.findUnique({ where: { serialNumber: String(SN) } })
+      const speaker = await prisma.user.findUnique({ where: { serialNumber: String(sn) } })
       if (!speaker) return res.status(401).send({ sucess: false, message: 'SerialNumber not matched' })
       res.locals.identity = speaker
       next()
