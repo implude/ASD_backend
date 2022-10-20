@@ -28,7 +28,11 @@ app.post('/stt', async (req: Request, res: Response & { locals: { identity: User
   const payload = { config, audio }
   const [response] = await client.recognize(payload as any)
   Logger.log('STT').next('S/N').put(res.locals.identity.serialNumber).next('content').put(response.results?.[0].alternatives?.[0].transcript).out()
-  return res.status(200).send({ success: true, message: 'OK', result: response.results?.[0].alternatives })
+  try {
+    return res.status(200).send({ success: true, message: 'OK', result: response.results?.[0].alternatives })
+  } catch {
+    return res.status(200).send({ success: false, message: 'Internal Server Error (STT failed)' })
+  }
 })
 
 export default app
