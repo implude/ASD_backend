@@ -129,7 +129,7 @@ io.on('connection', async (socket) => {
   Logger.log('Socket').put('Connected').next('id').put(socket.id).out()
 })
 
-server.listen(process.env.WEBSERVER_PORT, () => {
+server.listen(process.env.WEBSERVER_PORT || 3000, () => {
   Logger.success('Express').put('Server Ready').next('port').put(process.env.WEBSERVER_PORT).out()
   Logger.info('Environment').put(String(process.env.ENVIRONMENT)).out()
   switch (process.env.ENVIRONMENT) {

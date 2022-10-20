@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "./dist/Main.js",
-  "author": "Yoru",
+  "author": "rihayoru <me@yoru.icu>",
   "license": "MIT",
   "dependencies": {
     "@google-cloud/speech": "^4.10.2",
