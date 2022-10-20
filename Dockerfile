@@ -7,4 +7,5 @@ RUN npm install prisma
 COPY . .
 RUN npx prisma migrate dev
 RUN npx prisma generate
+RUN npm run build
 RUN npm start
