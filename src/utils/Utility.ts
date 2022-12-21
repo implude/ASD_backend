@@ -64,7 +64,7 @@ export function orderByString<T> (retriever:(v:T) => string, desc?:boolean):(a:T
  * @param object 대상 객체.
  * @param keys 선택할 키.
  */
-export function pick<T, U extends keyof T> (object:T, ...keys:U[]):Pick<T, U> {
+export function pick<T extends object, U extends keyof T> (object:T, ...keys:U[]):Pick<T, U> {
   return keys.reduce<Pick<T, U>>((pv, v) => {
     if (v in object) {
       pv[v] = object[v]
